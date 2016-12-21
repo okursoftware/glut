@@ -16,7 +16,7 @@
 #define gemiBaslangicHizi 5
 #define kursunHizi 15
 int score ;
-int asteroitHizi[3];
+int asteroitHizi[3]; 
 int krsnAdet = 0;
 int tus[5];// tus kontrol için
 int zorluk ;
@@ -69,7 +69,7 @@ int randomAsteroitPosizyon() //rasgele sayi uretme
 
 void kursunCizim(){ // kursun cizme
 	int d;
-	glColor3f(0.0,0.0,1.0);
+	glColor3f(1.0,1.0,0.0);
 	for(d=0;d<100;d++){
 		glBegin(GL_POLYGON);
 	    glVertex2f(krsn[d].kursunCizim[0][0],krsn[d].kursunCizim[0][1]);
@@ -84,7 +84,7 @@ void kursunCizim(){ // kursun cizme
 			
 }
 
-void kursunbaslangic(float x){//kursun ilk çıkır yeri belirleme	
+void kursunbaslangic(float x){//kursun ilk çıkış yeri belirleme	
 	
 		krsn[krsnAdet].kursunCizim[0][0] = x-3;
 		krsn[krsnAdet].kursunCizim[1][0] = x-3;
@@ -139,16 +139,18 @@ void asteroitCizim(int d){
 	
 	glEnd();
 	
-	carpismaKontrol();
+	carpismaKontrol();// kursun carpısma kontrol
 
 	asteroitHareket(d);
 }
 
-void asteroitHareket(int d){	
+void asteroitHareket(int d){	// asteroid hareket
 	
 	int i ;
-              if(score == 5)
+              if(score == 5)//score 5 olunca zorluk artır
 	  	      zorluk = 2;
+	  	       if(score == 10)//score 10 olunca score artır
+	  	      zorluk = 4;
 
 			 if(asteroitler[0].asteroitCizim[3][0]>596)
 	  	     asteroitHizi[0] = -1-zorluk;
@@ -166,7 +168,7 @@ void asteroitHareket(int d){
 			     asteroitler[1].asteroitCizim[i][0]-= asteroitHizi[1];
 			     
 	  	     }glutPostRedisplay();
-	  	      
+	  	     
    
 	     
 	
@@ -226,7 +228,8 @@ void skorYaz() {//skor yazdırma
 	}
 }
 
-void display(){
+void display(){// ekrana çizdirme
+	//int saniye 1;
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
@@ -237,6 +240,7 @@ void display(){
     
       
 	glutSwapBuffers();
+	// sleep(100);
 }
 
 
@@ -393,34 +397,40 @@ void MainMenu(int menuitem){
 	exit(1);
               }
 	}
+	
+
+
+ 
+
 int main(int argc, char **argv)
 {
 
 	glutInit(&argc,argv);
 
-	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA|GLUT_DEPTH);
+	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA|GLUT_DEPTH);//renkle alakalı
 	
-	glutInitWindowPosition(600,200);
+	glutInitWindowPosition(600,200);//ekranın ilk çıkış pozizyonu
 
-	glutInitWindowSize(600,800);
+	glutInitWindowSize(600,800);//ekranın boyutu
  
-	glutCreateWindow("GAME");
+	glutCreateWindow("DeadShot");//ust ekrandaki ismi
 	
-	init();
+	init();//başlangıç fonksiyonum
 
-	glutDisplayFunc(display);
+	glutDisplayFunc(display);//ekranı render etme
 	
-	glutKeyboardFunc(myKey);
+	glutKeyboardFunc(myKey);//normal klavye basma fonksiyonu
 	
-	glutKeyboardUpFunc(upmyKey);
+	glutKeyboardUpFunc(upmyKey);//normal klavye cekme fonksiyonu
 	
 
-    int iMainMenu = glutCreateMenu(MainMenu);
+    int iMainMenu = glutCreateMenu(MainMenu);//menu oluşturma
 
 	glutAddMenuEntry("Nasil Oynanir",1);
 	glutAddMenuEntry("Tekrar Oyna",2);
 	glutAddMenuEntry("Cikis",3);
-	glutAttachMenu(GLUT_RIGHT_BUTTON); 
+	glutAttachMenu(GLUT_RIGHT_BUTTON); //menu sag tıklama ile oluşuyor
+	//	glutTimerFunc(33, time, 33);
 	glutMainLoop();
 	
 	return 1;
