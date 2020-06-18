@@ -1,4 +1,4 @@
-//gcc Yeni.c -o Okur -lGL -lGLU -lglut
+//gcc game.c -o Okur -lGL -lGLU -lglut
 /*Copyright 2016 Muhammed OKUR*/
 
 #include <stdio.h>
